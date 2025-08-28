@@ -68,7 +68,7 @@ models = {
 }
 
 # =====================================================
-# 5. Training & Evaluation Function with Early Stopping for XGB
+# 5. Training & Evaluation Function
 # =====================================================
 def evaluate_model(name, model, X_train, y_train, X_val, y_val):
     fit_params = {}
@@ -110,12 +110,6 @@ for name, metrics in results.items():
 best_model_name = max(results, key=lambda x: results[x]["Accuracy Valid"])
 best_model = models[best_model_name]
 print(f"\nBest model selected: {best_model_name}")
-
-# Retrain on full training data (no early stopping here)
-if best_model_name == "XGBoost":
-    best_model.fit(X, y, verbose=False)
-else:
-    best_model.fit(X, y)
 
 # =====================================================
 # 8. Predict on Test Set & Save Submission

@@ -1,6 +1,7 @@
 # 🧮 Digit Recognizer - Handwritten Digit Classification
 
-[![Kaggle](https://img.shields.io/badge/Kaggle-View%20Project-blue?logo=kaggle)](https://www.kaggle.com/competitions/digit-recognizer/overview)
+**Dataset:** [Digit Recognizer – Kaggle](https://www.kaggle.com/code/alexandroskanakis/digit-recognizer)  
+**Notebook & Code:** [View My Solution](https://www.kaggle.com/code/alexandroskanakis/digit-recognizer)
 
 ---
 

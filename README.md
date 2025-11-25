@@ -13,7 +13,7 @@ This project tackles the handwritten digit classification problem using the popu
 
 ## 🔍 Motivation
 
-Digit recognition is a classic image classification challenge that serves as a benchmark for many machine learning techniques. This project explores different algorithmic approaches and demonstrates how pipelines and model evaluation can lead to robust and high-accuracy classifiers on this visual dataset.
+Digit recognition is a classic image classification challenge that serves as a benchmark for many machine learning techniques. This project explores various algorithmic approaches and demonstrates how pipelines and model evaluation can yield robust, high-accuracy classifiers on this visual dataset.
 
 ---
 
@@ -23,12 +23,12 @@ The dataset consists of:
 
 <div align="center">
 
-| File                   | Description                                       |
-|------------------------|-------------------------------------------------|
-| `train.csv`            | Training data with labeled digit classes (0-9)  |
+| File                   | Description                                      |
+|------------------------|--------------------------------------------------|
+| `train.csv`            | Training data with labeled digit classes (0-9)   |
 | `test.csv`             | Unlabeled test images for prediction             |
 | `data/final/`          | Folder to save final prediction submission CSVs  |
-| `requirements.txt`     | Python package dependencies                       |
+| `requirements.txt`     | Python package dependencies                      |
 
 </div>
 
@@ -36,8 +36,8 @@ The dataset consists of:
 
 <div align="center">
 
-| Variable    | Description                             |
-|-------------|-------------------------------------|
+| Variable    | Description                           |
+|-------------|---------------------------------------|
 | `label`     | The digit class label (0 to 9)        |
 | All others  | Pixel values representing the images  |
 
@@ -63,7 +63,26 @@ Build, evaluate, and compare multiple machine learning models to classify handwr
 - Achieved high validation accuracy over 97% using XGBoost  
 - Implemented balanced class weights and early stopping for improved model training  
 - Built reusable pipelines for preprocessing and modeling  
-- Generated reproducible submission file ready for Kaggle upload  
+- Generated reproducible submission file ready for Kaggle upload
+
+---
+
+## 📊 Model Evaluation Results
+
+After training and validation on the stratified 80/20 split, the models yielded the following performance metrics:
+
+<div align="center">
+
+| Model Name              | Accuracy Train | F1 Train   | Accuracy Valid | F1 Valid   |
+|-------------------------|----------------|------------|----------------|------------|
+| **Logistic Regression** | 0.9568         | 0.9568     | 0.9019         | 0.9017     |
+| **Decision Tree**       | 0.9276         | 0.9276     | 0.8651         | 0.8650     |
+| **XGBoost**             | **0.9999**     | **0.9999** | **0.9724**     | **0.9724** |
+
+</div>
+
+**Best Model Selected:** **XGBoost** (Validation Accuracy: 0.9724).
+A submission file (`Digit_Recognizer.csv`) was generated using the best model, trained on the full dataset.
 
 ---
 
@@ -79,13 +98,13 @@ Build, evaluate, and compare multiple machine learning models to classify handwr
 
 <div align="center">
 
-| File                       | Description                                |
-|----------------------------|--------------------------------------------|
-| `digit_recognizer.py`      | Full pipeline: data loading, modeling, evaluation, prediction |
-| `train.csv`                | Training images with labels                 |
-| `test.csv`                 | Test images for inference                    |
-| `data/final/Digit_Recognizer.csv` | Submission file with predicted labels        |
-| `requirements.txt`         | Python dependencies                          |
+| File                              | Description                                                   |
+|-----------------------------------|---------------------------------------------------------------|
+| `digit_recognizer.py`             | Full pipeline: data loading, modeling, evaluation, prediction |
+| `train.csv`                       | Training images with labels                                   |
+| `test.csv`                        | Test images for inference                                     |
+| `data/final/Digit_Recognizer.csv` | Submission file with predicted labels                         |
+| `requirements.txt`                | Python dependencies                                           |
 
 </div>
 
@@ -117,4 +136,4 @@ C --> D[Train & Evaluate Models]
 D --> E[Select Best Model]  
 E --> F[Retrain on Full Data]  
 F --> G[Predict on Test Data]  
-G --> H[Export Submission File]  
+G --> H[Export Submission File]

@@ -1,6 +1,6 @@
 # ✍️ Digit Recognizer (MNIST) — Handwritten Digit Classification (Kaggle)
 
-Classify handwritten digits (0–9) from pixel data using a clean, reproducible ML workflow:
+Classify handwritten digits (0–9) from pixel data using a clean, reproducible ML workflow:  
 **load data → stratified train/validation split → model pipelines → evaluation (Accuracy + F1) → best model selection → Kaggle submission export**.
 
 🔗 Kaggle Notebook / Solution:

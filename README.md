@@ -1,139 +1,63 @@
-# 🧮 Digit Recognizer - Handwritten Digit Classification
+# ✍️ Digit Recognizer (MNIST) — Handwritten Digit Classification (Kaggle)
 
-**Dataset:** [Digit Recognizer – Kaggle](https://www.kaggle.com/code/alexandroskanakis/digit-recognizer)  
-**Notebook & Code:** [View My Solution](https://www.kaggle.com/code/alexandroskanakis/digit-recognizer)
+Classify handwritten digits (0–9) from pixel data using a clean, reproducible ML workflow:
+**load data → stratified train/validation split → model pipelines → evaluation (Accuracy + F1) → best model selection → Kaggle submission export**.
 
----
-
-## 📊 Project Overview
-
-This project tackles the handwritten digit classification problem using the popular MNIST dataset from Kaggle's Digit Recognizer competition. It employs three machine learning models — Logistic Regression, Decision Tree, and XGBoost — wrapped in pipelines to preprocess and classify digit images based on their pixel values. Automated evaluation and best-model selection are included.
+🔗 Kaggle Notebook / Solution:
+https://www.kaggle.com/code/alexandroskanakis/digit-recognizer
 
 ---
 
-## 🔍 Motivation
+## ⭐ Highlights
+- Compared **Logistic Regression**, **Decision Tree**, and **XGBoost** on the same stratified split.
+- Used **pipelines + scaling** where appropriate (LogReg + StandardScaler).
+- Evaluated models using **Accuracy** and **Weighted F1-score** (train + validation).
+- Auto-selected the best model by **validation accuracy** and generated a submission file.
 
-Digit recognition is a classic image classification challenge that serves as a benchmark for many machine learning techniques. This project explores various algorithmic approaches and demonstrates how pipelines and model evaluation can yield robust, high-accuracy classifiers on this visual dataset.
-
----
-
-## 📘 Dataset Overview
-
-The dataset consists of:
-
-<div align="center">
-
-| File                   | Description                                      |
-|------------------------|--------------------------------------------------|
-| `train.csv`            | Training data with labeled digit classes (0-9)   |
-| `test.csv`             | Unlabeled test images for prediction             |
-| `data/final/`          | Folder to save final prediction submission CSVs  |
-| `requirements.txt`     | Python package dependencies                      |
-
-</div>
-
-### ✨ Key Variables
-
-<div align="center">
-
-| Variable    | Description                           |
-|-------------|---------------------------------------|
-| `label`     | The digit class label (0 to 9)        |
-| All others  | Pixel values representing the images  |
-
-</div>
+✅ Best validation result: **XGBoost — 0.9724 Accuracy / 0.9724 Weighted F1**.
 
 ---
 
-## 🎯 Project Objective
+## 🏆 Model Results (80/20 stratified split)
 
-Build, evaluate, and compare multiple machine learning models to classify handwritten digits accurately, featuring:
-
-- Data import and preprocessing with scaling when needed  
-- Stratified train-validation split for model assessment  
-- Use of Logistic Regression, Decision Tree, and XGBoost algorithms  
-- Evaluation using accuracy and weighted F1-score metrics  
-- Automated best model selection based on validation accuracy  
-- Final training on all data and submission file generation  
+| Model | Accuracy (Train) | F1 (Train) | Accuracy (Valid) | F1 (Valid) |
+|---|---:|---:|---:|---:|
+| Logistic Regression | 0.9568 | 0.9568 | 0.9019 | 0.9017 |
+| Decision Tree | 0.9276 | 0.9276 | 0.8651 | 0.8650 |
+| **XGBoost** | **0.9999** | **0.9999** | **0.9724** | **0.9724** |
 
 ---
 
-## 🏆 Achievements
+## 🧠 What’s inside (approach)
+### 1) Data
+- `train.csv`: labels (0–9) + pixel values
+- `test.csv`: pixel values only
 
-- Achieved high validation accuracy over 97% using XGBoost  
-- Implemented balanced class weights and early stopping for improved model training  
-- Built reusable pipelines for preprocessing and modeling  
-- Generated reproducible submission file ready for Kaggle upload
+### 2) Training setup
+- Split: **80/20 stratified** train-validation
+- Metrics: **Accuracy** + **Weighted F1**
 
----
+### 3) Models
+- **Logistic Regression** (with StandardScaler, class_weight="balanced")
+- **Decision Tree** (entropy criterion, max_depth=10, class_weight="balanced")
+- **XGBoost Classifier** (hist tree method, 300 estimators, tuned learning rate / depth)
 
-## 📊 Model Evaluation Results
-
-After training and validation on the stratified 80/20 split, the models yielded the following performance metrics:
-
-<div align="center">
-
-| Model Name              | Accuracy Train | F1 Train   | Accuracy Valid | F1 Valid   |
-|-------------------------|----------------|------------|----------------|------------|
-| **Logistic Regression** | 0.9568         | 0.9568     | 0.9019         | 0.9017     |
-| **Decision Tree**       | 0.9276         | 0.9276     | 0.8651         | 0.8650     |
-| **XGBoost**             | **0.9999**     | **0.9999** | **0.9724**     | **0.9724** |
-
-</div>
-
-**Best Model Selected:** **XGBoost** (Validation Accuracy: 0.9724).
-A submission file (`Digit_Recognizer.csv`) was generated using the best model, trained on the full dataset.
+### 4) Output
+Creates a Kaggle-ready submission file:
+`data/final/Digit_Recognizer.csv`
 
 ---
 
-## 🔧 Tools & Technologies
-
-- **Programming Language:** Python  
-- **Libraries:** Pandas, NumPy, Scikit-learn, XGBoost  
-- **Platform:** Local environment and Kaggle competition  
-
----
-
-## 📁 Repository Contents
-
-<div align="center">
-
-| File                              | Description                                                   |
-|-----------------------------------|---------------------------------------------------------------|
-| `digit_recognizer.py`             | Full pipeline: data loading, modeling, evaluation, prediction |
-| `train.csv`                       | Training images with labels                                   |
-| `test.csv`                        | Test images for inference                                     |
-| `data/final/Digit_Recognizer.csv` | Submission file with predicted labels                         |
-| `requirements.txt`                | Python dependencies                                           |
-
-</div>
+## 📁 Repository contents
+- `Digit_Recognizer.py` — end-to-end script: training, evaluation, best-model selection, submission export
+- `Exploratory_Data_Analysis_(EDA).ipynb` — optional EDA notebook (visual exploration)
+- `requirements.txt` — dependencies
+- `data/train.csv`, `data/test.csv` — Kaggle dataset files (place locally)
 
 ---
 
-## 📂 Project Directory Structure
+## 🚀 How to run
 
-Digit-Recognizer/  
-├── data/  
-│   ├── final/  
-│   │   └── Digit_Recognize.csv  
-│   ├── test.csv  
-│   └── train.csv  
-├── digit_recognizer.py  
-├── README.md  
-└── requirements.txt  
-
-- **data/**: Contains dataset files and output submission folder  
-- **digit_recognizer.py**: Main script for training, evaluating, and predicting  
-- **requirements.txt**: List of Python packages and versions  
-
----
-
-## 🚀 Project Workflow
-
-A[Load Data] --> B[Train-Validation Split]  
-B --> C[Define Models & Pipelines]  
-C --> D[Train & Evaluate Models]  
-D --> E[Select Best Model]  
-E --> F[Retrain on Full Data]  
-F --> G[Predict on Test Data]  
-G --> H[Export Submission File]
+### 1) Install dependencies
+```bash
+pip install -r requirements.txt

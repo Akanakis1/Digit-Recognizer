@@ -1,63 +1,95 @@
-# ✍️ Digit Recognizer (MNIST) — Handwritten Digit Classification (Kaggle)
+# Digit Recognizer (MNIST) — Reproducible Classification Workflow
 
-Classify handwritten digits (0–9) from pixel data using a clean, reproducible ML workflow:  
-**load data → stratified train/validation split → model pipelines → evaluation (Accuracy + F1) → best model selection → Kaggle submission export**.
+This repository contains a clean, end-to-end implementation of a supervised classification workflow
+using the MNIST handwritten digit dataset. The emphasis is on **reproducibility, evaluation discipline,
+and clear model comparison**, rather than leaderboard optimization.
 
-🔗 Kaggle Notebook / Solution:
+---
+
+## Project Overview
+
+**Objective**  
+Classify handwritten digits (0–9) from pixel-level data using a structured and reproducible
+machine learning pipeline.
+
+**Workflow**  
+Data loading → stratified train/validation split → model pipelines →
+evaluation (Accuracy, weighted F1) → best-model selection → submission export.
+
+**Kaggle notebook**  
 https://www.kaggle.com/code/alexandroskanakis/digit-recognizer
 
 ---
 
-## ⭐ Highlights
-- Compared **Logistic Regression**, **Decision Tree**, and **XGBoost** on the same stratified split.
-- Used **pipelines + scaling** where appropriate (LogReg + StandardScaler).
-- Evaluated models using **Accuracy** and **Weighted F1-score** (train + validation).
-- Auto-selected the best model by **validation accuracy** and generated a submission file.
+## Key Results
 
-✅ Best validation result: **XGBoost — 0.9724 Accuracy / 0.9724 Weighted F1**.
+- Compared **Logistic Regression**, **Decision Tree**, and **XGBoost** using the same stratified split.
+- Used pipelines and feature scaling where appropriate.
+- Evaluated models with **Accuracy** and **weighted F1-score** on validation data.
+- Automatically selected the best-performing model and generated a Kaggle-ready submission file.
 
----
-
-## 🏆 Model Results (80/20 stratified split)
-
-| Model | Accuracy (Train) | F1 (Train) | Accuracy (Valid) | F1 (Valid) |
-|---|---:|---:|---:|---:|
-| Logistic Regression | 0.9568 | 0.9568 | 0.9019 | 0.9017 |
-| Decision Tree | 0.9276 | 0.9276 | 0.8651 | 0.8650 |
-| **XGBoost** | **0.9999** | **0.9999** | **0.9724** | **0.9724** |
+**Best validation performance**  
+- **XGBoost** — Accuracy **0.9724**, weighted F1 **0.9724**
 
 ---
 
-## 🧠 What’s inside (approach)
-### 1) Data
-- `train.csv`: labels (0–9) + pixel values
+## Model Comparison (80/20 Stratified Split)
+
+| Model               | Accuracy (Validation) | Weighted F1 (Validation) |
+|---------------------|-----------------------|--------------------------|
+| Logistic Regression | 0.9019                | 0.9017                   |
+| Decision Tree       | 0.8650                | 0.8650                   |
+| XGBoost             | 0.9724                | 0.9724                   |
+
+*Training metrics are intentionally omitted to avoid overemphasis on overfitting.*
+
+---
+
+## Repository Structure
+
+├── .vscode/  
+│ └── settings.json # Editor configuration (optional)  
+├── data/  
+│ ├── train.csv # Kaggle training data (local)  
+│ ├── test.csv # Kaggle test data (local)  
+│ └── final/  
+│ └── Digit_Recognizer.csv # Generated submission file  
+├── notebooks/  
+│ └── Exploratory_Data_Analysis_EDA.ipynb  
+├── Digit_Recognizer.py # End-to-end training & evaluation pipeline  
+├── requirements.txt # Project dependencies  
+└── README.md # Project documentation  
+
+---
+
+## Methodology
+
+### Data
+- `train.csv`: digit labels (0–9) and pixel values
 - `test.csv`: pixel values only
 
-### 2) Training setup
-- Split: **80/20 stratified** train-validation
-- Metrics: **Accuracy** + **Weighted F1**
+### Training Setup
+- **Split:** 80/20 stratified train–validation
+- **Metrics:** Accuracy, weighted F1-score
 
-### 3) Models
-- **Logistic Regression** (with StandardScaler, class_weight="balanced")
-- **Decision Tree** (entropy criterion, max_depth=10, class_weight="balanced")
-- **XGBoost Classifier** (hist tree method, 300 estimators, tuned learning rate / depth)
+### Models
+- **Logistic Regression**
+  - Pipeline with StandardScaler
+  - Class-balanced training
+- **Decision Tree**
+  - Entropy criterion
+  - Depth constrained to reduce overfitting
+- **XGBoost**
+  - Tuned depth and learning rate
 
-### 4) Output
-Creates a Kaggle-ready submission file:
-`data/final/Digit_Recognizer.csv`
-
----
-
-## 📁 Repository contents
-- `Digit_Recognizer.py` — end-to-end script: training, evaluation, best-model selection, submission export
-- `Exploratory_Data_Analysis_(EDA).ipynb` — optional EDA notebook (visual exploration)
-- `requirements.txt` — dependencies
-- `data/train.csv`, `data/test.csv` — Kaggle dataset files (place locally)
+### Output
+- Automatically generates a Kaggle-compatible submission file:
+- `data/final/Digit_Recognizer.csv`
 
 ---
 
-## 🚀 How to run
+## How to Run
 
-### 1) Install dependencies
-```bash
-pip install -r requirements.txt
+1. Install dependencies:
+ ```bash
+  pip install -r requirements.txt

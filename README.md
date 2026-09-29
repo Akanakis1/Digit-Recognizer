@@ -1,4 +1,4 @@
-# Digit Recognizer (MNIST) — Reproducible Classification Workflow
+# Digit Recognizer (MNIST): Reproducible Classification Workflow
  
 This repository contains a clean, end-to-end implementation of a supervised classification workflow
 using the MNIST handwritten digit dataset. The emphasis is on **reproducibility, evaluation discipline,
@@ -28,7 +28,7 @@ https://www.kaggle.com/code/alexandroskanakis/digit-recognizer
 - Evaluated models with **Accuracy** and **weighted F1-score**, on both the training and validation splits.
 - Automatically selected the best-performing model (by validation accuracy) and generated a Kaggle-ready submission file.
 **Best validation performance**
-- **XGBoost** — Accuracy **0.9724**, weighted F1 **0.9724**
+- **XGBoost**: Accuracy **0.9724**, weighted F1 **0.9724**
 ---
  
 ## Model Comparison (80/20 Stratified Split)
@@ -41,8 +41,8 @@ https://www.kaggle.com/code/alexandroskanakis/digit-recognizer
  
 <!-- TODO: the pipeline also computes and prints Accuracy/F1 on the training
 split for every model (see console output when you run Digit_Recognizer.py).
-Pasting those numbers in as a second pair of columns here — Train Accuracy /
-Train F1 next to the Validation columns above — is stronger evidence of
+Pasting those numbers in as a second pair of columns here (Train Accuracy /
+Train F1 next to the Validation columns above) is stronger evidence of
 "evaluation discipline" than validation numbers alone, since it lets a
 reader see directly that no model is wildly overfitting. -->
  

@@ -93,8 +93,8 @@ Automatically generates a Kaggle-compatible submission file at
  
 1. Clone the repository:
 ```bash
-   git clone https://github.com/<your-username>/<your-repo-name>.git
-   cd <your-repo-name>
+   git clone https://github.com/Akanakis1/Digit-Recognizer.git
+   cd Digit-Recognizer
 ```
  
 2. Install dependencies:

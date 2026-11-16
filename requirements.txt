@@ -10,4 +10,4 @@ seaborn>=0.11.1
 scikit-learn>=1.0.2
 
 # XGBoost
-xgboost>=1.5.0
+xgboost>=1.6.0  # early_stopping_rounds in the constructor needs 1.6+

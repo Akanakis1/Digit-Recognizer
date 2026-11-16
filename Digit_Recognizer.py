@@ -3,7 +3,7 @@
 # =====================================================
 import pandas as pd
 import numpy as np
-import os
+from pathlib import Path
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
@@ -15,18 +15,26 @@ from sklearn.metrics import accuracy_score, f1_score
 # =====================================================
 # 2. Data Import
 # =====================================================
-train_df = pd.read_csv("data/train.csv")
-test_df = pd.read_csv("data/test.csv")
- 
+# The Kaggle files are not stored in this repository (see the README for how to get them).
+BASE_DIR = Path(__file__).resolve().parent
+DATA_DIR = BASE_DIR / "data"
+train_df = pd.read_csv(DATA_DIR / "train.csv")
+test_df = pd.read_csv(DATA_DIR / "test.csv")
+
 X = train_df.drop("label", axis=1).values
 y = train_df["label"].values
 X_test = test_df.values
- 
+
 # =====================================================
-# 3. Train-Validation Split
+# 3. Train / Validation / Holdout split: 80% / 10% / 10%, stratified
 # =====================================================
+# The validation set is used for XGBoost early stopping and for choosing the best model.
+# The holdout set is evaluated once, after selection, so its score is not tuned.
+X_trainval, X_hold, y_trainval, y_hold = train_test_split(
+    X, y, test_size=0.10, random_state=42, stratify=y
+)
 X_train, X_val, y_train, y_val = train_test_split(
-    X, y, test_size=0.2, random_state=42, stratify=y
+    X_trainval, y_trainval, test_size=1/9, random_state=42, stratify=y_trainval
 )
  
 # =====================================================
@@ -116,8 +124,15 @@ for name, metrics in results.items():
 # choice of tiebreaker metric doesn't change which model wins here.
 best_model_name = max(results, key=lambda x: results[x]["Accuracy Valid"])
 best_model = models[best_model_name]
-print(f"\nBest model selected: {best_model_name}")
- 
+print(f"\nBest model selected (on the validation set): {best_model_name}")
+
+# Holdout evaluation: never used for fitting, early stopping or selection
+print("\nHOLDOUT SET EVALUATION (10% of the training data)")
+for name, model in models.items():
+    hold_pred = model.predict(X_hold)
+    print(f"{name:<20} accuracy {accuracy_score(y_hold, hold_pred):.4f}  "
+          f"weighted F1 {f1_score(y_hold, hold_pred, average='weighted'):.4f}")
+
 # =====================================================
 # 8. Predict on Test Set & Save Submission
 # =====================================================
@@ -127,9 +142,9 @@ submission = pd.DataFrame({
     "Label": test_preds
 })
  
-output_dir = "data/final"
-os.makedirs(output_dir, exist_ok=True)
-submission.to_csv(os.path.join(output_dir, "Digit_Recognizer.csv"), index=False)
+output_dir = DATA_DIR / "final"
+output_dir.mkdir(parents=True, exist_ok=True)
+submission.to_csv(output_dir / "Digit_Recognizer.csv", index=False)
 print("Submission file saved as 'Digit_Recognizer.csv'")
  
 

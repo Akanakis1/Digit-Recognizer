@@ -1,0 +1,9 @@
+# Kaggle competition data (download it yourself, see README)
+data/train.csv
+data/test.csv
+
+# Editor and Python artifacts
+.vscode/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
